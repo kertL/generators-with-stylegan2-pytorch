@@ -8,8 +8,7 @@
 
 import pickle
 import dnnlib
-import dnnlib.tflib as tflib
-
+import legacy
 #----------------------------------------------------------------------------
 # StyleGAN2 Google Drive root: https://drive.google.com/open?id=1QHc-yF5C3DChRwSdZKcx1w6K8JvSxQi7
 
@@ -61,20 +60,17 @@ def get_path_or_url(path_or_gdrive_path):
 
 _cached_networks = dict()
 
-def load_networks(path_or_gdrive_path):
-    path_or_url = get_path_or_url(path_or_gdrive_path)
-    if path_or_url in _cached_networks:
-        return _cached_networks[path_or_url]
-
-    if dnnlib.util.is_url(path_or_url):
-        stream = dnnlib.util.open_url(path_or_url, cache_dir='.stylegan2-cache')
-    else:
-        stream = open(path_or_url, 'rb')
-
-    tflib.init_tf()
-    with stream:
-        G, D, Gs = pickle.load(stream, encoding='latin1')
-    _cached_networks[path_or_url] = G, D, Gs
+def load_networks(network_pkl, device='cuda'):
+    if network_pkl in _cached_networks:
+        return _cached_networks[network_pkl]
+    
+    with open(network_pkl, 'rb') as f:
+        result = legacy.load_network_pkl(f)  # 使用stylegan2-ada-pytorch的方式加载网络
+        G=result['G'] #.to(device) 用不着
+        D=result['D']
+        Gs=result['G_ema'].to(device)
+    
+    _cached_networks[network_pkl] = G, D, Gs
     return G, D, Gs
 
 #----------------------------------------------------------------------------
