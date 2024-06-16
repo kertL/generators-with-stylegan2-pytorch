@@ -1,5 +1,10 @@
 # New version of face generators based on StyleGAN2
 
+
+This fork replaced the dnnlib dependency with the pytorch version of stylegan2. The change is tested under windows+3060+cuda, as well as mac m1+mps/cpu. 
+Some soft links might not work perfectly, you can just clone the stylegan2-ada-pytorch repo and copy/move its dnnlib, legacy.py, training, torch_utils to this repo.
+
+
 <br />
 &emsp;&emsp;Here is a series of new face generators based on StyleGAN2, including <a href='https://github.com/a312863063/seeprettyface-generator-yellow'>yellow face</a>，<a href='https://github.com/a312863063/seeprettyface-generator-wanghong'>chinese internet-celebrity face</a>，<a href='https://github.com/a312863063/seeprettyface-generator-star'>chinese pop-star face</a>，<a href='https://github.com/a312863063/seeprettyface-generator-model'>world supermodel face</a> and <a href='https://github.com/a312863063/seeprettyface-generator-babies'>cute baby face</a> generator that are improved from the old version, and two more aesthetic generators(<a href='#'>mixed-blood face</a> and <a href='#'>Asian beauty face</a> generator)are added, along with a general face attribute editor. Having made so many generators is enough, I will no longer try to make new content related to face generators, but I will explore more practical and more satisfying generation technology to better serve people(for example you can visit <a href='https://github.com/a312863063/Video-Auto-Wipe'>Video-Auto-Wipe</a>).<br/>
 &emsp;&emsp;The function of the generator is to provide various styles of face materials for us to use at will, and help save the cost of finding real people (faces). 
